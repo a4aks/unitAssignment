@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="nav.css">
+    <style>
+        #containerId {
+            display: grid;
+            gap: 5px;
+            grid-template-columns: auto auto auto;
+        }
+        button{
+            margin-top: 100px;
+            margin-right: 20px;
+        }
+    </style>
+<body>
+   
+        <button  id = "low">Sort By Low Rating to High</button>
+
+        <button id = "high">Sort By High Rating to Low</button>
+   
+    <div id = "containerId">
+         
+    </div>
+   <script type = "text/javascript">
+
+    const data = JSON.parse(localStorage.getItem("movie"));
+    let movies = []
+    if(data){
+        movies = data
+    }
+    const low = document.getElementById("low");
+    low.addEventListener("click", function(){
+        console.log("low")
+       // Number(data.rating)
+       movies =  data.sort(function(a, b){return a.rating - b.rating});
+       displayCart(movies);
+       console.log(movies)
+    })
+
+    const high = document.getElementById("high");
+    high.addEventListener("click", function(){
+        movies =  data.sort(function(a, b){return b.rating - a.rating});
+       displayCart(movies);
+       console.log(movies)
+    })
+
+    window.addEventListener("load",displayCart(movies));
+       function displayCart(movies){
+           const row = document.getElementById("containerId");
+          // const row = document.createElement("div")
+           for(let i = 0; i < movies.length; i++){
+               const col = document.createElement("div")
+               const div = document.createElement("div");
+               div.textContent = movies[i].name;
+               const div2 = document.createElement("div");
+               div2.textContent = "Date:" + movies[i].date;
+               const div3 = document.createElement("div")
+               const img = document.createElement("img");
+               img.src = movies[i].url;
+               img.style.width = "50%";
+               div3.append(img)
+               const div4 = document.createElement("div");
+               div4.textContent = "IMDb Rating:" + movies[i].rating;
+               col.append(div,div2,div3,div4)
+               col.style.border = "2px solid black";
+              // col.style.width = "50%";
+               col.style.margin = "1%";
+               col.style.padding = "5%";
+               row.append(col)
+           }
+           row.style.border = "2px solid red";
+           row.style.marginTop = "5%";
+         //  row.style.display = "grid";
+         //  parent.appendChild(row)
+       }
+   </script>
+</body>
+<script src="nav.js"></script>
+</html>

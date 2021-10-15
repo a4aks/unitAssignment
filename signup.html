@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="nav.css">
+    <style>
+        body{
+            text-align: center;
+        }
+        div{
+            margin-bottom: 20px;
+        }
+        h1{
+            margin-top : 100px;
+        }
+    </style>
+<body>
+    <h1>REGISTER </h1>
+    <form>
+       <div>
+          <label>Name :</label>
+          <input type="text" id = "name" placeholder="Your Name" />
+       </div>
+       <div>
+           <label>Contact No.:</label>
+           <input type="number" id = "mobileno" placeholder="Mobile No"/>
+       </div>
+       <div>
+           <label>Email:</label>
+           <input type="email" id = "email" placeholder="Email Id">
+       </div>
+       <div>
+           <label>Password: </label>
+           <input type="password" id = "password" placeholder="Password"/>
+       </div>
+       <div>
+           <input type="submit" value="SIGN UP" />
+        </div>
+    </form>
+    <script>
+        let users = []
+        window.addEventListener("load", function () {
+        var formEle = document.querySelector("form");
+        formEle.addEventListener("submit", signForm);
+        handleLoad()
+      });
+
+        function signForm(e){
+            e.preventDefault();
+            const name = document.getElementById("name").value;
+            const mobile = document.getElementById("mobileno").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            if(name){
+                alert("Must be Filled")
+            }
+
+            const data = {
+                name : name,
+                contact : mobile,
+                email : email,
+                password : password
+            }
+            users.push(data);
+            console.log(users)
+            localStorage.setItem("sign", JSON.stringify(users))
+        }
+        function handleLoad() {
+        const data = JSON.parse(localStorage.getItem("sign"));
+      //  const container = document.querySelector("table");
+        // * if not null
+        if (data) {
+          users = data;
+          //displayProduct(data, container);
+        }
+      }
+    </script>
+</body>
+<script src="nav.js"></script>
+</html>

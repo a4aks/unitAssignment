@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            margin-bottom:  20px;
+        }
+    </style>
+</head>
+<body> 
+    <form>
+        <div>
+            <label>Name:</label>
+            <input type = "text" id = "mname" />
+        </div>
+        <div>
+            <label>Release Date</label>
+            <input type = "date" id = "date" />
+        </div>
+        <div>
+            <label>Image</label>
+            <input type = "url" id = "url">
+        </div>
+        <div>
+            <label>Rating</label>
+            <input type = "text" id = "rating" />
+        </div>
+        <div>
+            <input type = "submit" value = "Add Movie" />
+        </div>
+    </form>
+    <script type = "text/javascript">
+       
+      let movies = []
+
+       window.addEventListener("load", function(){
+           const formEle = document.querySelector("form")
+           formEle.addEventListener("submit", addMovie)
+           handleLoad()
+       })
+
+       function handleLoad() {
+        const data = JSON.parse(localStorage.getItem("movie"));
+      //  const container = document.querySelector("table");
+        // * if not null
+        if (data) {
+          movies = data;
+          //displayProduct(data, container);
+        }
+      }
+
+       function addMovie(e){
+           e.preventDefault()
+           const name = document.getElementById("mname").value;
+           const date = document.getElementById("date").value;
+           const url = document.getElementById("url").value;
+           const rating = document.getElementById("rating").value;
+
+
+           const movieData = {
+               name : name,
+               date : date,
+               url : url,
+               rating : rating,
+           }
+           console.log(movieData)
+           movies.push(movieData);
+           localStorage.setItem("movie", JSON.stringify(movies));
+       }
+    </script>
+</body>
+</html>
